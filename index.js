@@ -59,8 +59,7 @@ app.get("/theatre/:version", (req, res) => {
   // https://stackoverflow.com/questions/10849687/express-js-how-to-get-remote-client-address
   // And the Express.js docs:
   // http://expressjs.com/en/guide/behind-proxies.html
-  const ipAddress =
-    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  const ipAddress = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
   console.log(ipAddress); // Log ip address of the user
 
   // TODO: Should be async:
