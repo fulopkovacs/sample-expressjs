@@ -1,8 +1,31 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+const bcrypt = require("bcrypt");
 
+/**
+ * The latest published version.
+ */
 const LATEST_VERSION = process.env.LATEST_VERSION;
+const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const undefinedEnvVars = [];
+
+/**
+ * Ensure that the environmental variables are not defined.
+ */
+function checkEnvironmentalVariables() {
+  if (!LATEST_VERSION) undefinedEnvVars.push(LATEST_VERSION);
+  if (!SALT_ROUNDS) undefinedEnvVars.push(SALT_ROUNDS);
+  if (undefinedEnvVars.length > 0) {
+    throw new Error(
+      `The following environment variables are not defined: ${undefinedEnvVars.join(
+        ","
+      )}`
+    );
+  }
+}
+
+checkEnvironmentalVariables();
 
 /*
 PSEUDO CODE
@@ -39,6 +62,14 @@ app.get("/theatre/:version", (req, res) => {
   const ipAddress =
     req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   console.log(ipAddress); // Log ip address of the user
+
+  // TODO: Should be async:
+  // https://www.npmjs.com/package/bcrypt#usage
+  const salt = bcrypt.genSaltSync(Number(SALT_ROUNDS));
+  const ipAddressHash = bcrypt.hashSync(ipAddress, salt);
+
+  // TODO: Check the hash in the db, and increase the
+  // visit count.
 
   let responseMessage = {
     hasUpdates: false,
