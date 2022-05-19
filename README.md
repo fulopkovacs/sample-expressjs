@@ -10,7 +10,7 @@
   curl 'localhost:3000/theatre/0.4.8'
   ```
 
-- You can start a development PostgreSQL database with Docker using the `docker-compose.yml` file in `./docker-dev-postgresql` ([check the README](./docker-dev-postgresql/README.md))
+- You can start a development PostgreSQL database with Docker using the `docker-compose.yml` file in `./docker-dev-postgresql` ([check the README](docker-dev-posgresql/README.md))
 
 ## Getting Started
 
