@@ -1,10 +1,13 @@
 ## Notes by Fülöp
 
-Start the server in development mode (it watches the changes):
-
-```bash
-yarn dev
-```
+- Start the server in development mode (it watches the changes), the latest version will be always `0.4.9`:
+  ```bash
+  yarn dev
+  ```
+- Test endpoints from the terminal:
+  ```bash
+  curl 'localhost:3000/theatre/0.4.8'
+  ```
 
 ## Getting Started
 

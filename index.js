@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
 
-const startupMessage = `App started`;
 const LATEST_VERSION = process.env.LATEST_VERSION;
 
 /*
@@ -30,15 +29,25 @@ app.get('/theatre/:version') {
 }
   */
 
-//
+// Get the version of theatre
 app.get("/theatre/:version", (req, res) => {
-  // Check the version
+  // This might not be that accurate,
+  // read more about the ip addresses:
+  // https://stackoverflow.com/questions/10849687/express-js-how-to-get-remote-client-address
+  // And the Express.js docs:
+  // http://expressjs.com/en/guide/behind-proxies.html
+  const ipAddress =
+    req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+  console.log(ipAddress); // Log ip address of the user
+
   let responseMessage = {
     hasUpdates: false,
   };
+
   if (req.params.version !== LATEST_VERSION) {
     responseMessage = {
-      latest: "0.4.9",
+      hasUpdates: true,
+      latest: LATEST_VERSION,
       releasePage: "https://docs.theatrejs.com/releases/0.4.9",
     };
   }
