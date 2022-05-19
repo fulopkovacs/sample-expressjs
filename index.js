@@ -6,8 +6,7 @@ const bcrypt = require("bcrypt");
 /**
  * The latest published version.
  */
-const LATEST_VERSION = process.env.LATEST_VERSION;
-const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const { LATEST_VERSION, SALT_ROUNDS } = process.env;
 const undefinedEnvVars = [];
 
 /**
@@ -52,7 +51,7 @@ app.get('/theatre/:version') {
 }
   */
 
-// Get the version of theatre
+// Endpoint: get the version of theatre
 app.get("/theatre/:version", (req, res) => {
   // This might not be that accurate,
   // read more about the ip addresses:
